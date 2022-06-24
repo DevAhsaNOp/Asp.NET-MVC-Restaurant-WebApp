@@ -35,10 +35,10 @@ namespace WebAppRestaurant.Controllers
         }
 
         [HttpPost]
-        public JsonResult Index(OrderViewModel objOrderViewModel, CustomerViewModel customerViewModel)
+        public JsonResult Index(OrderViewModel objOrderViewModel, CustomerViewModel objCustomerViewModel)
         {
             OrderRepository objOrderRepository = new OrderRepository();
-            bool isStatus = objOrderRepository.AddOrder(objOrderViewModel, customerViewModel);
+            bool isStatus = objOrderRepository.AddOrder(objOrderViewModel, objCustomerViewModel);
             string SuccessMessage = String.Empty;
 
             if (isStatus)

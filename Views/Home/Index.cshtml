@@ -4,6 +4,8 @@
 }
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+    var CustomerName;
+    var PhoneNumber;
     $(document).ready(function () {
         loadItem();
         $("#txtQuantity").val('1.00');
@@ -28,20 +30,27 @@
         });
 
         $("#btnPayment").click(function () {
-            FinalPayment();
+            PhoneNumber = $("#txtPhoneNumber").val();
+            CustomerName = $("#txtCustomerName").val();
+            console.log(CustomerName + PhoneNumber);
+            FinalPayment(CustomerName, PhoneNumber);
         });
-
+        
         $("#btnReset").click(function () { ResetItems(); ResetItemsDetails(); });
         ResetItems();
         ResetItemsDetails();
+        
     });
 
-    function FinalPayment() {
+    function FinalPayment(CustomerName, PhoneNumber) {
+        console.log(CustomerName + PhoneNumber);
+        var name = CustomerName;
+        var number = PhoneNumber;
         var objOrderViewModel = {};
-        var customerViewModel = {};
+        var objCustomerViewModel = {};
         var ListOrderDetailViewModel = new Array();
-        customerViewModel.CustomerName = $("#CustomerName").val();
-        customerViewModel.PhoneNumber = $("#PhoneNumber").val();
+        objCustomerViewModel.CustomerName = name;
+        objCustomerViewModel.PhoneNumber = number;
         objOrderViewModel.PaymentTypeId = $("#PaymentType").val();
         objOrderViewModel.FinalTotal = $("#txtFinalTotal").val();
         $("#tblRestaurantItemList").find("tr:gt(0)").each(function () {
@@ -59,7 +68,7 @@
             type: 'POST',
             dataType: 'JSON',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(objOrderViewModel, customerViewModel),
+            data: JSON.stringify(objOrderViewModel, objCustomerViewModel),
             url: '/home/Index',
             success: function (data) { alert(data) },
             error: function () { alert('There is some problem to get the unit price.') }
@@ -189,7 +198,6 @@
         }
     }
 </script>
-
 <style>
     .modal {
         text-align: center;
@@ -241,13 +249,15 @@
             <div class="col-md-4" style="width: 300px !important;">
                 <div class="form-group">
                     Customer Name:
-                    @Html.TextBox("CustomerName",null, htmlAttributes: new {@class= "form-control" })
+                    <input style="text-align:right; font-weight:bold" name="CustomerName" type="text" id="txtCustomerName"
+                           class="form-control" />
                 </div>
             </div>
             <div class="col-md-4" style="width: 300px !important;">
                 <div class="form-group">
                     Customer Phone Number:
-                    @Html.TextBox("PhoneNumber", null, htmlAttributes: new { @class = "form-control" })
+                    <input style="text-align:right; font-weight:bold" name="PhoneNumber" type="text" id="txtPhoneNumber"
+                           class="form-control" />
                 </div>
             </div>
             <div class="col-md-2"  style=" width: 22.666667% !important;">
