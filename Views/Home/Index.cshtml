@@ -35,11 +35,11 @@
             console.log(CustomerName + PhoneNumber);
             FinalPayment(CustomerName, PhoneNumber);
         });
-        
+
         $("#btnReset").click(function () { ResetItems(); ResetItemsDetails(); });
         ResetItems();
         ResetItemsDetails();
-        
+
     });
 
     function FinalPayment(CustomerName, PhoneNumber) {
@@ -49,6 +49,7 @@
         var objOrderViewModel = {};
         var objCustomerViewModel = {};
         var ListOrderDetailViewModel = new Array();
+        console.log(name + ' ' + number);
         objCustomerViewModel.CustomerName = name;
         objCustomerViewModel.PhoneNumber = number;
         objOrderViewModel.PaymentTypeId = $("#PaymentType").val();
@@ -227,7 +228,7 @@
         border-radius: 4px;
         background-color: #f5f5f5;
         padding-left: 10px !important;
-        margin-top:30px !important;
+        margin-top: 30px !important;
     }
 
     .Lgnd {
@@ -249,18 +250,18 @@
             <div class="col-md-4" style="width: 300px !important;">
                 <div class="form-group">
                     Customer Name:
-                    <input style="text-align:right; font-weight:bold" name="CustomerName" type="text" id="txtCustomerName"
+                    <input name="CustomerName" type="text" id="txtCustomerName"
                            class="form-control" />
                 </div>
             </div>
             <div class="col-md-4" style="width: 300px !important;">
                 <div class="form-group">
                     Customer Phone Number:
-                    <input style="text-align:right; font-weight:bold" name="PhoneNumber" type="text" id="txtPhoneNumber"
+                    <input name="PhoneNumber" type="text" id="txtPhoneNumber"
                            class="form-control" />
                 </div>
             </div>
-            <div class="col-md-2"  style=" width: 22.666667% !important;">
+            <div class="col-md-2" style=" width: 22.666667% !important;">
                 <div class="form-group">
                     Payment Type:
                     @Html.DropDownList("PaymentType", new SelectList(Model.Item2, "Value", "Text"),
